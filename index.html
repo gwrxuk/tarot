@@ -1,0 +1,77 @@
+<html>
+  <head>
+      <title>Tarot Reading</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+
+<script>
+var all_cards = [];
+const div = d3.selectAll("div");
+  csv = d3.csv("tarotcards.csv",function(data){
+    console.log(data);
+    all_cards.push(data["card"]);
+  });
+
+</script>
+    <style>
+      .tarotcard{
+        border: dotted 2px black;
+        width:200px;
+        height:200px;
+        padding: 25px;
+        margin:25px;
+      }
+    </style>
+  </head>
+<body>
+
+    <div id="app">
+    <v-app>
+      <v-main>
+        <v-container>
+        
+          <h1>Tarot Reading</h1>
+  <v-btn onclick="javascript:getResult()">Get your cards</v-btn>
+  <div id="result"></div>
+          
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+    })
+  </script>
+  
+    <script>
+    const array1 = [5, 12, 8, 130, 44];
+
+const found = array1.find(element => element > 10);
+
+console.log(found);
+// expected output: 12
+      
+      function getResult(){
+        let result = Array.from({length: 5}, () => Math.floor(Math.random() * all_cards.length)-1);
+         result.map(x=>{
+           let item = all_cards[x];
+            console.log(item);
+           $("#result").append(`<div class='tarotcard'>${item}</>`);
+         });
+      }
+  </script>
+  
+</body>
+
+</html>
